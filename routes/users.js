@@ -24,7 +24,7 @@ router.post("/signup", async (req, res) => {
         token: uid2(32),
       });
       newUser.save().then((data) => {
-        res.json({ result: true, user: data.user });
+        res.json({ result: true, user: data.token });
       });
     } else {
       res.json({ result: false, error: "User already exist" });
@@ -40,7 +40,7 @@ router.post("/signin", (req, res) => {
 
   User.findOne({ email: req.body.email }).then((data) => {
     if (data && bcrypt.compareSync(req.body.password, data.password)) {
-      res.json({ result: true, user: "utilisateur connecté" });
+      res.json({ result: true, user: data.token });
     } else {
       res.json({
         result: false,
