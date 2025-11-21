@@ -4,10 +4,22 @@ const Tweet = require('../models/tweet');
 require('../models/connection')
 const User = require('../models/users')
 
+router.get('/allTweets', async (req, res) => {
+    try{
+        const tweets = await Tweet.find()
+        res.json(tweets)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: 'erreur serveur'})
+    }
+    
+
+})
+
 
 router.post('/addTweet', async (req, res) => {
     const {content, token} = req.body;
-
+    console.log(token)
     try{
         if (!content || content.length > 280) {
             res.status(400).json({result: false, error: 'Le contenu est vide ou trop long'})
