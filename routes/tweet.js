@@ -6,8 +6,7 @@ const User = require('../models/users')
 
 
 router.post('/addTweet', async (req, res) => {
-    const {content} = req.body;
-    const {token} = req.query
+    const {content, token} = req.body;
 
     try{
         if (!content || content.length > 280) {
